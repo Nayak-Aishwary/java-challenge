@@ -12,7 +12,7 @@ This is a simple Employee Management API built with Spring Boot. It allows you t
 
 - **User Management**: Admin role can manage user accounts, including registration and user profile management.
 
-- **Role-Based Access Control**: Assign roles to users to control their access to specific API endpoints.
+- **Role-Based Access Control**: Admin role can ssign roles to users to control their access to specific API endpoints.
 
 ## Getting Started
 
@@ -84,7 +84,7 @@ Enhancing application security and monitoring.
 
 You can explore the API documentation using Swagger UI. To access it, open the following URL in your web browser:
 
-[Swagger UI](http://localhost:8082/swagger-ui.html)
+Swagger UI accessible at `http://localhost:8082/swagger-ui.html`
 
 The Swagger UI provides an interactive interface for exploring and testing the available API endpoints. You can view details about the endpoints, submit requests, and see responses right from your browser.
 

@@ -38,6 +38,13 @@ This is a simple Employee Management API built with Spring Boot. It allows you t
 
 The API will be accessible at `http://localhost:8082/api/v1/employees`.
 
+## Security and Logging
+
+- **Spring Security**: Utilized for authentication and authorization.
+- **AOP Logging**: Method invocations and responses are logged using Aspect-Oriented Programming (AOP).
+
+Enhancing application security and monitoring.
+
 ### User Authentication
 
 For testing the user authentication and role-based access control features, you can use the following example users:
@@ -72,13 +79,6 @@ For testing the user authentication and role-based access control features, you 
 - `POST /api/v1/users/register`: Register a new user.
 - `DELETE /api/v1/users/{userId}`: Delete a user by ID.
 - `PUT /api/v1/users/update/{userId}`: Update a user by ID.
-
-## Security and Logging
-
-- **Spring Security**: Utilized for authentication and authorization.
-- **AOP Logging**: Method invocations and responses are logged using Aspect-Oriented Programming (AOP).
-
-Enhancing application security and monitoring.
 
 ## Swagger Documentation
 

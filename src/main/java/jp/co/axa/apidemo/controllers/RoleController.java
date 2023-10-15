@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jp.co.axa.apidemo.entities.Role;
 import jp.co.axa.apidemo.services.RoleService;
 
@@ -25,6 +27,7 @@ import jp.co.axa.apidemo.services.RoleService;
  */
 @RestController
 @RequestMapping("/api/v1/roles")
+@Api(tags = "Role Controller")
 public class RoleController {
 
 	@Autowired
@@ -36,6 +39,7 @@ public class RoleController {
 	 * @return List of roles.
 	 */
 	@GetMapping("/getAll")
+	@ApiOperation(value = "Get list of all roles")
 	public List<Role> getAllRoles() {
 		List<Role> roles = roleService.retrieveAllRoles();
 		return roles;
@@ -48,6 +52,7 @@ public class RoleController {
 	 * @return The role with the specified ID.
 	 */
 	@GetMapping("/getById/{roleId}")
+	@ApiOperation(value = "Get details of a role by role id")
 	public ResponseEntity<Role> getRoleById(@PathVariable(name = "roleId") Long roleId) {
 		return new ResponseEntity<>(roleService.getRoleById(roleId), HttpStatus.OK);
 	}
@@ -59,6 +64,7 @@ public class RoleController {
 	 * @return A ResponseEntity with the registered role and an HTTP status code.
 	 */
 	@PostMapping("/register")
+	@ApiOperation(value = "Register details of a role")
 	public ResponseEntity<Role> saveRole(@RequestBody Role role) {
 		return new ResponseEntity<>(roleService.saveRole(role), HttpStatus.CREATED);
 	}
@@ -71,6 +77,7 @@ public class RoleController {
 	 *         status code.
 	 */
 	@DeleteMapping("/{roleId}")
+	@ApiOperation(value = "Delete a role")
 	public ResponseEntity<String> deleteRole(@PathVariable(name = "roleId") Long roleId) {
 		roleService.deleteRole(roleId);
 		return ResponseEntity.ok("Role deleted successfully with role ID: " + roleId);
@@ -84,6 +91,7 @@ public class RoleController {
 	 * @return A ResponseEntity with the updated role and an HTTP status code.
 	 */
 	@PutMapping("/update/{roleId}")
+	@ApiOperation(value = "Update details of a role")
 	public ResponseEntity<Role> updateRole(@RequestBody Role role, @PathVariable(name = "roleId") Long roleId) {
 		return new ResponseEntity<>(roleService.updateRole(role, roleId), HttpStatus.OK);
 	}

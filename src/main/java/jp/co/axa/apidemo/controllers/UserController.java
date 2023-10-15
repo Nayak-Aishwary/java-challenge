@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jp.co.axa.apidemo.entities.User;
 import jp.co.axa.apidemo.services.UserService;
 
@@ -26,6 +28,7 @@ import jp.co.axa.apidemo.services.UserService;
  */
 @RestController
 @RequestMapping("/api/v1/users")
+@Api(tags = "User Controller")
 public class UserController {
 
 	@Autowired
@@ -37,6 +40,7 @@ public class UserController {
 	 * @return List of users.
 	 */
 	@GetMapping("/getAll")
+	@ApiOperation(value = "Get list of all users")
 	public List<User> getAllUsers() {
 		List<User> users = userService.retrieveAllUsers();
 		return users;
@@ -49,6 +53,7 @@ public class UserController {
 	 * @return The user with the specified ID.
 	 */
 	@GetMapping("/getById/{userId}")
+	@ApiOperation(value = "Get details of a user by user id")
 	public ResponseEntity<User> getUserById(@PathVariable(name = "userId") Long userId) {
 		return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
 	}
@@ -60,6 +65,7 @@ public class UserController {
 	 * @return A ResponseEntity with the registered user and an HTTP status code.
 	 */
 	@PostMapping("/register")
+	@ApiOperation(value = "Register a user")
 	public ResponseEntity<User> saveUser(@RequestBody User user) {
 		return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
 	}
@@ -72,6 +78,7 @@ public class UserController {
 	 *         status code.
 	 */
 	@DeleteMapping("/{userId}")
+	@ApiOperation(value = "Delete a user")
 	public ResponseEntity<String> deleteUser(@PathVariable(name = "userId") Long userId) {
 		userService.deleteUser(userId);
 		return ResponseEntity.ok("User deleted successfully with User ID: " + userId);
@@ -85,6 +92,7 @@ public class UserController {
 	 * @return A ResponseEntity with the updated user and an HTTP status code.
 	 */
 	@PutMapping("/update/{userId}")
+	@ApiOperation(value = "Update details of a user")
 	public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable(name = "userId") Long userId) {
 		return new ResponseEntity<>(userService.updateUser(user, userId), HttpStatus.OK);
 	}

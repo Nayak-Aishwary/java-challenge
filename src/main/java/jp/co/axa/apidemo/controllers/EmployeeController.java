@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jp.co.axa.apidemo.entities.Employee;
 import jp.co.axa.apidemo.services.EmployeeService;
 
@@ -27,6 +29,7 @@ import jp.co.axa.apidemo.services.EmployeeService;
  */
 @RestController
 @RequestMapping("/api/v1/employees")
+@Api(tags = "Employee Controller")
 public class EmployeeController {
 
 	@Autowired
@@ -38,6 +41,7 @@ public class EmployeeController {
 	 * @return A list of employees.
 	 */
 	@GetMapping("/getAll")
+	@ApiOperation(value = "Get a list of all employees")
 	public List<Employee> getAllEmployees() {
 		List<Employee> employees = employeeService.retrieveAllEmployees();
 		return employees;
@@ -50,6 +54,7 @@ public class EmployeeController {
 	 * @return A ResponseEntity with the retrieved employee and an HTTP status code.
 	 */
 	@GetMapping("/getById/{employeeId}")
+	@ApiOperation(value = "Get details of employee by employee id")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable(name = "employeeId") Long employeeId) {
 		return new ResponseEntity<Employee>(employeeService.getEmployeeById(employeeId), HttpStatus.OK);
 	}
@@ -62,6 +67,7 @@ public class EmployeeController {
 	 *         HTTP status code.
 	 */
 	@GetMapping("/getByName/{empName}")
+	@ApiOperation(value = "Get list of employees by employee name")
 	public ResponseEntity<List<Employee>> getEmployeeByName(@PathVariable(name = "empName") String empName) {
 		List<Employee> employees = employeeService.getEmployeeByName(empName);
 		if (employees.isEmpty()) {
@@ -78,6 +84,7 @@ public class EmployeeController {
 	 *         code.
 	 */
 	@PostMapping("/register")
+	@ApiOperation(value = "Register details of an employee")
 	public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
 		return new ResponseEntity<Employee>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
 	}
@@ -90,6 +97,7 @@ public class EmployeeController {
 	 *         status code.
 	 */
 	@DeleteMapping("/{employeeId}")
+	@ApiOperation(value = "Delete details of an employee")
 	public ResponseEntity<String> deleteEmployee(@PathVariable(name = "employeeId") Long employeeId) {
 		employeeService.deleteEmployee(employeeId);
 		return new ResponseEntity<String>("Employee deleted successfully with employee ID: " + employeeId,
@@ -104,6 +112,7 @@ public class EmployeeController {
 	 * @return A ResponseEntity with the updated employee and an HTTP status code.
 	 */
 	@PutMapping("/update/{employeeId}")
+	@ApiOperation(value = "Update details of an employee")
 	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee,
 			@PathVariable(name = "employeeId") Long employeeId) {
 		return new ResponseEntity<Employee>(employeeService.updateEmployee(employee, employeeId), HttpStatus.OK);

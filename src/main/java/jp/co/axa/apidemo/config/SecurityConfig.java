@@ -25,11 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Configure in-memory authentication for testing
-        auth.inMemoryAuthentication()
-            .withUser("user@boot.com").password(passwordEncoder().encode("password")).roles("USER");
-        
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {        
         // Configure user details service and password encoder
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
@@ -39,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/api/v1/employees/**").authenticated() // Require authentication for API endpoints
-                .antMatchers("/api/v1/users/**").authenticated() // Require authentication for User endpoints
-                .antMatchers("/api/v1/roles/**").authenticated() // Require authentication for Role endpoints
+                .antMatchers("/api/v1/users/**").hasRole("ADMIN")  // Require admin role for users
+                .antMatchers("/api/v1/roles/**").hasRole("ADMIN")  // Require admin role for roles
                 .antMatchers("/h2-console/**").authenticated() // Require authentication for H2 Console
                 .and()
             .httpBasic()
